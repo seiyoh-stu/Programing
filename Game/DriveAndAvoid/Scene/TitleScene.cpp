@@ -23,14 +23,14 @@ void TitleScene::Initialize()
 	//エラーチェック
 	if (background_image == -1)
 	{
-		throw("Resource/images/Title.bmpがありません/n");
+		throw("Resource/images/Title.bmpがありません\n");
 	}
 	if (menu_image==-1)
 	{
-		throw("Resource/images/menu.bmpがありません/n");
+		throw("Resource/images/menu.bmpがありません\n");
 	}if (cursor_image==-1)
 	{
-		throw("Resource/images/cone.bmpがありません/n");
+		throw("Resource/images/cone.bmpがありません\n");
 	}
 }
 

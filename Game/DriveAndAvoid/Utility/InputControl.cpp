@@ -5,6 +5,7 @@
 bool InputControl::now_button[16] = {};
 bool InputControl::old_button[16] = {};
 float InputControl::trigger[2] = {};
+Vector2D InputControl::stick[2] = {};
 
 //入力機能：更新処理
 void InputControl::Update()
@@ -27,15 +28,16 @@ void InputControl::Update()
 	//左スティック入力値の更新
 	if (input_state.ThumbLX>0.0f)
 	{
-		stick[0].x = (float)input_state.ThumbLX / (float)SHRT_MAX;
+		stick[0].x = ((float)input_state.ThumbLX / (float)SHRT_MAX);
 	}
 	else
 	{
 		stick[0].x = -((float)input_state.ThumbLX / (float)SHRT_MIN);
 	}
+	
 	if (input_state.ThumbLY>0.0f)
 	{
-		stick[0].y = (float)input_state.ThumbLY / (float)SHRT_MAX;
+		stick[0].y = ((float)input_state.ThumbLY / (float)SHRT_MAX);
 	}
 	else
 	{
@@ -51,7 +53,7 @@ void InputControl::Update()
 	//右スティック入力値の更新
 	if (input_state.ThumbRX>0.0f)
 	{
-		stick[1].x = (float)input_state.ThumbRX, (float)SHRT_MAX;
+		stick[1].x = ((float)input_state.ThumbRX, (float)SHRT_MAX);
 	}
 	else
 	{

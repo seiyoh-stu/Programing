@@ -12,7 +12,7 @@ ResultScene::ResultScene() :back_ground(NULL), score(0)
 	}
 }
 
-ResultScene::ResultScene()
+ResultScene::~ResultScene()
 {
 
 }
@@ -27,11 +27,11 @@ void ResultScene::Initialize()
 	//エラーチェック
 	if (back_ground == -1)
 	{
-		throw("Resource/images/back.bmpがありません/n");
+		throw("Resource/images/back.bmpがありません\n");
 	}
 	if (result==-1)
 	{
-		throw("Resource/images/car.bmpがありません/n");
+		throw("Resource/images/car.bmpがありません\n");
 	}
 
 	//ゲーム結果の読み込み
@@ -73,6 +73,7 @@ void ResultScene::Draw() const
 			enemy_count[i], (i + 1) * 50, (i + 1) * 50 * enemy_count[i]);
 	}
 	DrawString(180, 290, "スコア", GetColor(0, 0, 0));
+	DrawFormatString(180, 290, 0xFFFFFF,"        =%6d", score);
 }
 
 //終了時処理
@@ -101,16 +102,16 @@ void ResultScene::ReadResultData()
 	//エラーチェック
 	if (result!=0)
 	{
-		throw("Resource/dat/result_data,csvが読み込めません/n");
+		throw("Resource/dat/result_data,csvが読み込めません\n");
 	}
 
 	//結果を読み込む
-	fscanf_s(fp, "%6d,/n", & score);
+	fscanf_s(fp, "%6d,\n", &score);
 
 	//避けた数と得点を取得
 	for (int i = 0; i < 3; i++)
 	{
-		fscanf_s(fp, "%6d/n", &enemy_count[i]);
+		fscanf_s(fp, "%6d,\n", &enemy_count[i]);
 	}
 
 	//fileクローズ

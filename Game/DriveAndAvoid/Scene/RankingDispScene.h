@@ -2,6 +2,7 @@
 
 #include"SceneBase.h"
 #include"../object/RankingData.h"
+
 class RankingDispScene:public SceneBase
 {
 private:

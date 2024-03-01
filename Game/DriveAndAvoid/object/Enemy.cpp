@@ -24,6 +24,12 @@ void Enemy::Initialize()
 	speed = (float)(this->type * 2);
 }
 
+void Enemy::Update(float speed)
+{
+	//ˆÊ’uî•ñ‚ÉˆÚ“®—Ê‚ð‰ÁŽZ‚·‚é
+	location += Vector2D(0.0f, this->speed + speed - 6);
+}
+
 void Enemy::Draw() const
 {
 	//“G‰æ‘œ‚Ì•`‰æ

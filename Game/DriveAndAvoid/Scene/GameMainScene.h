@@ -3,7 +3,7 @@
 #include"../object/Player.h"
 #include"../object/Enemy.h"
 
-class GameMainScene
+class GameMainScene : public SceneBase
 {
 private:
 	int high_score;
@@ -15,14 +15,15 @@ private:
 	Player* player;
 	Enemy** enemy;
 
-private:
+public:
 	GameMainScene();
 	virtual ~GameMainScene();
 
 	virtual void Initialize() override;
 	virtual eSceneType Update() override;
-	virtual void Finalize() override;
 	virtual void Draw() const override;
+	virtual void Finalize() override;
+	
 
 	virtual eSceneType GetNowScene() const override;
 

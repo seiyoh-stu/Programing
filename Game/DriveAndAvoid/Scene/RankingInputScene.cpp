@@ -5,7 +5,7 @@
 RankingInputScene::RankingInputScene() :background_image(NULL), ranking(nullptr), score(0),
 name_num(0), cursor_x(0), cursor_y(0)
 {
-	memset(name, NULL,(sizeof(char) * 15));
+	memset(name, NULL, (sizeof(char) * 15));
 }
 
 RankingInputScene::~RankingInputScene()
@@ -20,9 +20,9 @@ void RankingInputScene::Initialize()
 	background_image = LoadGraph("Resource/images/Ranking.bmp");
 
 	//エラーチェック
-	if (background_image==-1)
+	if (background_image == -1)
 	{
-		throw("Resource/images/Ranking.bmpがありません/n");
+		throw("Resource/images/Ranking.bmpがありません\n");
 	}
 
 	//メモリの動的確保
@@ -32,16 +32,16 @@ void RankingInputScene::Initialize()
 	//リザルトデータを取得する
 	FILE* fp = nullptr;
 	//fileオープン
-	errno_t result = fopen_s(&fp, "Resource/dat/result_data,csv", "r");
+	errno_t result = fopen_s(&fp, "Resource/dat/result_data.csv", "r");
 
 	//エラーチェック
-	if (result!=0)
+	if (result != 0)
 	{
-		throw("Rsource/dat/result_data.csvが読み込めません");
+		throw("Resource/dat/result_data.csvが読み込めません\n");
 	}
 
 	//結果を読み込む
-	fscanf_s(fp, "%6d,/n", & score);
+	fscanf_s(fp, "%6d,\n", &score);
 
 	//fileクローズ
 	fclose(fp);
@@ -53,7 +53,7 @@ eSceneType RankingInputScene::Update()
 	bool is_change = false;
 
 	//名前入力処理
-	is_change = InputName();
+	is_change = Inputname();
 
 	//シーン変更は可能か？
 	if (is_change)
@@ -76,7 +76,7 @@ void RankingInputScene::Draw() const
 	DrawGraph(0, 0, background_image, TRUE);
 
 	//名前入力支持文字列の描画
-	DrawString(150, 100, "ランキングに登録します。",0xFFFFFF);
+	DrawString(150, 100, "ランキングに登録します。", 0xFFFFFF);
 	DrawFormatString(100, 220, GetColor(255, 255, 255), ">%s", name);
 
 
@@ -90,11 +90,11 @@ void RankingInputScene::Draw() const
 		y = ((i / 13) + 2) * font_size + 300;
 		DrawFormatString(x, y, GetColor(255, 255, 255), "%-3c", 'A' + i);
 	}
-	DrawString(40, 405, "決定",GetColor(255, 255, 255));
+	DrawString(40, 405, "決定", GetColor(255, 255, 255));
 	DrawString(40 + font_size * 2, 405, "消す", GetColor(255, 255, 255));
 
 	//選択をフォーカスする
-	if (cursor_y<4)
+	if (cursor_y < 4)
 	{
 		int x = cursor_x * font_size + 10;
 		int y = cursor_y * font_size + 295;
@@ -182,7 +182,7 @@ bool RankingInputScene::Inputname()
 		if (cursor_y < 2)
 		{
 			name[name_num++] = 'a' + cursor_x + (cursor_y * 13);
-			if (name_num==14)
+			if (name_num == 14)
 			{
 				cursor_x = 0;
 				cursor_y = 4;
@@ -191,7 +191,7 @@ bool RankingInputScene::Inputname()
 		else if (cursor_y < 4)
 		{
 			name[name_num++] = 'A' + cursor_x + ((cursor_y - 2) * 13);
-			if (name_num==14)
+			if (name_num == 14)
 			{
 				cursor_x = 0;
 				cursor_y = 4;
@@ -201,7 +201,7 @@ bool RankingInputScene::Inputname()
 		{
 			if (cursor_x == 0)
 			{
-				name[name_num] = '/0';
+				name[name_num] = '\0';
 				return true;
 			}
 			else

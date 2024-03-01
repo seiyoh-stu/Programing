@@ -27,16 +27,22 @@ void SceneManager::Initialize()
 	//ウィンドウモードで起動
 	if (ChangeWindowMode(TRUE) != DX_CHANGESCREEN_OK)
 	{
-		throw("ウィンドウモードで起動できませんでした/n");
+		throw("ウィンドウモードで起動できませんでした\n");
+	}
+
+	//DXライブラリの初期化
+	if (DxLib_Init() == -1)
+	{
+		throw("Dxライブラリが初期化できませんでした\n");
 	}
 
 	//描画先指定処理
 	if (SetDrawScreen(DX_SCREEN_BACK) == -1)
 	{
-		throw("描画先の指定ができませんでした/n");
+		throw("描画先の指定ができました\n");
 	}
 
-	//タイトル心から始める
+	//タイトルシーンから始める
 	ChangeScene(eSceneType::E_TITLE);
 }
 
@@ -125,7 +131,7 @@ void SceneManager::ChangeScene(eSceneType scene_type)
 	//エラーチェック
 	if (new_scene == nullptr)
 	{
-		throw("芯が生成できませんでした。/n");
+		throw("芯が生成できませんでした。\n");
 	}
 
 	//前回シーンの終了処理を行う
@@ -153,13 +159,13 @@ SceneBase* SceneManager::CreateScene(eSceneType scene_type)
 	case eSceneType::E_MAIN:
 			return new GameMainScene;
 	case eSceneType::E_RESULT:
-		return new ResultScene;
+			return new ResultScene;
 	case eSceneType::E_HELP:
-		return new HelpScene;
+			return new HelpScene;
 	case eSceneType::E_RANKING_DISP:
-		return new RankingDispScene;
+			return new RankingDispScene;
 	case eSceneType::E_RANKING_INPUT:
-		return new RankingInputScene;
+			return new RankingInputScene;
 			
 	default:
 		return nullptr;

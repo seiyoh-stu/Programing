@@ -3,7 +3,7 @@
 #include "Dxlib.h"
 
 Player::Player() :is_active(false), image(NULL), location(0.0f), box_size(0.0f), angle(0.0f),
-speed(0.0f), hp(0.0f), fuel(0.0f), barrier_const(0), barrier(nullptr)
+speed(0.0f), hp(0.0f), fuel(0.0f), barrier_count(0), barrier(nullptr)
 {
 
 }
@@ -21,7 +21,7 @@ void Player::Initialize()
 	box_size = Vector2D(31.0f, 60.0f);
 	angle = 0.0f;
 	speed = 3.0f;
-	hp = 100;
+	hp = 1000;
 	fuel = 20000;
 	barrier_count = 3;
 
@@ -31,7 +31,7 @@ void Player::Initialize()
 	//エラーチェック
 	if (image == -1)
 	{
-		throw("Resource/images/car1pol.bmpがありません/n");
+		throw("Resource/images/car1pol.bmpがありません\n");
 	}
 }
 
@@ -86,6 +86,18 @@ void Player::Update()
 	}
 }
 
+//描画処理
+void Player::Draw()
+{
+	//プレイヤー画像の描画
+	DrawRotaGraphF(location.x, location.y, 1.0, angle, image, TRUE);
+
+	//バリアが生成されていたら、描画を行う
+	if (barrier != nullptr)
+	{
+		barrier->Draw(this->location);
+	}
+}
 //終了処理
 void Player::Finalize()
 {
@@ -108,7 +120,7 @@ void Player::SetActive(bool flg)
 //体力減少処理
 void Player::DecreaseHp(float value)
 {
-	retrun this->location;
+	this->hp + value;
 }
 
 //当たり判定の大きさ取得処理
@@ -124,9 +136,15 @@ Vector2D Player::GetBoxSize() const
 }
 
 //速さ取得処理
-float player::GetSpeed() const
+float Player::GetSpeed() const
 {
 	return this->speed;
+}
+
+//燃料取得処理
+float Player::GetFuel() const
+{
+	return this->fuel;
 }
 
 //体力取得処理
@@ -162,7 +180,7 @@ void Player::Movement()
 	if (InputControl::GetButton(XINPUT_BUTTON_DPAD_RIGHT))
 	{
 		move += Vector2D(1.0f, 0.0f);
-		angle = -DX_PI_F / 18;
+		angle = DX_PI_F / 18;
 	}
 	if (InputControl::GetButton(XINPUT_BUTTON_DPAD_UP))
 	{
